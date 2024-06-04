@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TilausDBApp.Models.Tuotteet>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ahinta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kuva)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageLink)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nimi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ahinta)
+        </td>
+        <td>
+            @*<img style="height: 200px; width: 100%; display: auto;" src="https://cdn.pixabay.com/photo/2021/05/29/06/21/cake-6292573_1280.jpg" />*@
+            <img style="max-height:200px; max-width:200px; display: block;" src="@item.ImageLink" alt="@item.ImageLink">
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageLink)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TuoteID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TuoteID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TuoteID })
+        </td>
+    </tr>
+}
+
+</table>

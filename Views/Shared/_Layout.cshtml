@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">TilausDBApp(@ViewBag.LoggedStatus)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/home">
+                            Etusivu
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/home/about">Tietoa firmasta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/home/contact">Yhteystiedot</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/home/login">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/home/logout">Log Out</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tilaukset</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 42px, 0px);">
+                            <a class="dropdown-item" href="/asiakkaat">Asiakkaat</a>
+                            <a class="dropdown-item" href="/henkilot">Henkilöt</a>
+                            <a class="dropdown-item" href="/postitoimipaikat">Postitoimipaikat</a>
+                            <a class="dropdown-item" href="/tilaukset">Tilaukset</a>
+                            <a class="dropdown-item" href="/tilausrivit">Tilausrivit</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/tuotteet">Tuotteet</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstraplux")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
