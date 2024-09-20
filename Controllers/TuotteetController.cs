@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TilausDBApp.Models;
+using PagedList;
 
 namespace TilausDBApp.Controllers
 {
@@ -15,14 +16,101 @@ namespace TilausDBApp.Controllers
         private TilausDBEntities1 db = new TilausDBEntities1();
 
         // GET: Tuotteet
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter1, string searchString1, int? page, int? pagesize)
         {
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.ProductNameSortParm = String.IsNullOrEmpty(sortOrder) ? "productname_desc" : "";
+            ViewBag.UnitPriceSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
+
+            //Hakufiltterin laitto muistiin
+            if (searchString1 != null)
+            {
+                page = 1;
+            } else
+            {
+                searchString1 = currentFilter1;
+            }
+
+            ViewBag.currentFilter1 = searchString1;
+
+            var tuotteet = from p in db.Tuotteet
+                           select p;
+            if (!String.IsNullOrEmpty(searchString1)) //Jos hakufiltteri on käytössä, niin käytetään sitä ja sen lisäksi lajitellaan tulokset
+            {
+                switch (sortOrder)
+                {
+                    case "productname_desc":
+                        tuotteet = tuotteet.Where(p => p.Nimi.Contains(searchString1)).OrderByDescending(p => p.Nimi);
+                        break;
+                    case "UnitPrice":
+                        tuotteet = tuotteet.Where(p => p.Nimi.Contains(searchString1)).OrderBy(p => p.Ahinta);
+                        break;
+                    case "UnitPrice_desc":
+                        tuotteet = tuotteet.Where(p => p.Nimi.Contains(searchString1)).OrderByDescending(p => p.Ahinta);
+                        break;
+                    default:
+                        tuotteet = tuotteet.Where(p => p.Nimi.Contains(searchString1)).OrderBy(p => p.Nimi);
+                        break;
+                }
+                
+            } else // Tässä hakufiltteri EI OLE käytössä, joten lajitellaan koko tulosjoukko ilman suodatuksia
+            {
+                switch (sortOrder)
+                {
+                    case "productname_desc":
+                        tuotteet = tuotteet.OrderByDescending(p => p.Nimi);
+                        break;
+                    case "UnitPrice":
+                        tuotteet = tuotteet.OrderBy(p => p.Ahinta);
+                        break;
+                    case "UnitPrice_desc":
+                        tuotteet = tuotteet.OrderByDescending(p => p.Ahinta);
+                        break;
+                    default:
+                        tuotteet = tuotteet.OrderBy(p => p.Nimi);
+                        break;
+                }
+            };
+
+
+            List<Categories> lstCategories = new List<Categories>();
+
+            var categoryList = from cat in db.Categories
+                               select cat;
+
+            Categories tyhjaCategory = new Categories();
+            tyhjaCategory.CategoryID = 0;
+            tyhjaCategory.CategoryName = "";
+            tyhjaCategory.CategoryIDCategoryName = "";
+            lstCategories.Add(tyhjaCategory);
+
+            foreach (Categories category in categoryList)
+            {
+                Categories yksiCategory = new Categories();
+                yksiCategory.CategoryID = category.CategoryID;
+                yksiCategory.CategoryName = category.CategoryName;
+                yksiCategory.CategoryIDCategoryName = category.CategoryID.ToString() + " - " + category.CategoryName;
+                //Taulun luokkamääritykseen Models-kansiossa piti lisätä tämä "uusi" kenttä = CategoryIDCategoryName
+                lstCategories.Add(yksiCategory);
+            }
+            ViewBag.CategoryID = new SelectList(lstCategories, "CategoryID", "CategoryIDCategoryName", ProductCategory);
+
+
+
+
+
+
             if (Session["UserName"] == null)
             {
                 ViewBag.LoggedStatus = "OUT";
             }
             else ViewBag.LoggedStatus = "IN";
-            return View(db.Tuotteet.ToList());
+            //return View(db.Tuotteet.ToList());
+            //return View(tuotteet);
+            int pageSize = (pagesize ?? 10); //Tämä palauttaa sivukoon taikka jos pagesize on null, niin palauttaa koon 10 riviä per sivu
+            int pageNumber = (page ?? 1); //Tämä palauttaa sivunumeron taikka jos page on null, niin palauttaa numeron yksi
+            return View(tuotteet.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Tuotteet/Details/5

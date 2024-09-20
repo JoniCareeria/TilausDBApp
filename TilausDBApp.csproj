@@ -2301,7 +2301,7 @@
     <Content Include="Views\Tuotteet\Delete.cshtml" />
     <Content Include="Views\Tuotteet\Details.cshtml" />
     <Content Include="Views\Tuotteet\Edit.cshtml" />
-    <Content Include="Views\Tuotteet\Index.cshtml" />
+    <Content Include="Views\Tuotteet\Index2.cshtml" />
     <Content Include="Views\Tilausrivit\Create.cshtml" />
     <Content Include="Views\Tilausrivit\Delete.cshtml" />
     <Content Include="Views\Tilausrivit\Details.cshtml" />
@@ -2329,6 +2329,7 @@
     <Content Include="Views\Asiakkaat\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Logout.cshtml" />
+    <Content Include="Views\Tuotteet\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
