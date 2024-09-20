@@ -6,16 +6,6 @@
     ViewBag.Title = "Index";
 }
 
-<!--Tämä on jQueryä-->
-@section scripts {
-    <script type="text/javascript">
-        $("#singleSelectedCategoryID").on("change", function () {
-            //Getting Value
-            var selValue = $("#singleSelectedCategoryID").val();
-            document.getElementById("ProductCategory").value = selValue;
-        });
-    </script>
-    }
 
 <h2>Tuotteet</h2>
 
@@ -28,17 +18,14 @@
                 <div class="input-group">
                     <p class="px-1">@Html.Label("Haku:")</p>
                     <p class="px-1">@Html.TextBox("searchString1", ViewBag.currentFilter1 as string, new { @class = "form-control" })</p>
-                    <p class="px-1">@Html.Label("Etsi kategorian avulla:")</p>
-                    <p class="px-1">@Html.Hidden("ProductCategory", ViewBag.currentFilter1 as string, new { @id = "ProductCategory", @class = "form-control" })</p> @*Piilotettu kenttä, jolla tehdään hakua*@
-                    <p class="px-1">@Html.DropDownList("CategoryID", null, htmlAttributes: new { @id = "singleSelectedCategoryID", @class = "form-control" })</p>
                     <p class="px-1"><input type="submit" value="Search" class="form-control" /></p>
                 </div>
             }
 
 <table class="table">
     <tr>
-        <th>@Html.ActionLink("Tuotteen nimi", "Index", new { sortOrder = ViewBag.ProductNameSortParm, currentFilter1 = ViewBag.currentFilter1, currentProductCategory = ViewBag.currentProductCategory })</th>
-        <th>@Html.ActionLink("A-Hinta", "Index", new { sortOrder = ViewBag.UnitPriceSortParm, currentFilter1 = ViewBag.currentFilter1, currentProductCategory = ViewBag.currentProductCategory })</th>
+        <th>@Html.ActionLink("Tuotteen nimi", "Index", new { sortOrder = ViewBag.ProductNameSortParm, currentFilter1 = ViewBag.currentFilter1 })</th>
+        <th>@Html.ActionLink("A-Hinta", "Index", new { sortOrder = ViewBag.UnitPriceSortParm, currentFilter1 = ViewBag.currentFilter1 })</th>
         <th>Kuva</th>
         <th>ImageLink</th>
         <th></th>
@@ -63,4 +50,4 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter1 = ViewBag.currentFilter1, currentProductCategory = ViewBag.currentProductCategory }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter1 = ViewBag.currentFilter1 }))

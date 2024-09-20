@@ -13,6 +13,7 @@ namespace TilausDBApp.Models
     using System.Collections.Generic;
     
     public partial class Tuotteet
+
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tuotteet()

@@ -74,33 +74,6 @@ namespace TilausDBApp.Controllers
             };
 
 
-            List<Categories> lstCategories = new List<Categories>();
-
-            var categoryList = from cat in db.Categories
-                               select cat;
-
-            Categories tyhjaCategory = new Categories();
-            tyhjaCategory.CategoryID = 0;
-            tyhjaCategory.CategoryName = "";
-            tyhjaCategory.CategoryIDCategoryName = "";
-            lstCategories.Add(tyhjaCategory);
-
-            foreach (Categories category in categoryList)
-            {
-                Categories yksiCategory = new Categories();
-                yksiCategory.CategoryID = category.CategoryID;
-                yksiCategory.CategoryName = category.CategoryName;
-                yksiCategory.CategoryIDCategoryName = category.CategoryID.ToString() + " - " + category.CategoryName;
-                //Taulun luokkamääritykseen Models-kansiossa piti lisätä tämä "uusi" kenttä = CategoryIDCategoryName
-                lstCategories.Add(yksiCategory);
-            }
-            ViewBag.CategoryID = new SelectList(lstCategories, "CategoryID", "CategoryIDCategoryName", ProductCategory);
-
-
-
-
-
-
             if (Session["UserName"] == null)
             {
                 ViewBag.LoggedStatus = "OUT";
