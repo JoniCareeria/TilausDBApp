@@ -1,7 +1,19 @@
-﻿@{
+﻿@model TilausDBApp.Models.Logins
+
+@{
     ViewBag.Title = "Home Page";
 }
 
+@*JQuery, joka suoritetaan aina, kun sivu latautuu*@
+@section scripts{
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            if (@ViewBag.LoginError == 1) {
+                $('#LoginRuutu').modal('show');
+            }
+        });
+    </script>
+}
 <main>
     <section class="row" aria-labelledby="aspnetTitle">
         <h1 id="title">ETUSIVU</h1>
@@ -17,10 +29,10 @@
     </section>
 
     <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">KIRJAUDU SISÄÄN</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginRuutu">KIRJAUDU SISÄÄN</button>
 
     <!-- The Modal -->
-    <div class="modal" id="myModal">
+    <div class="modal" id="LoginRuutu">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -32,46 +44,55 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <div class="input-group input-group-sm mb-3">
+                    @*<div class="input-group input-group-sm mb-3">
                         <span class="input-group-text">Käyttäjänimi</span>
                         <input type="text" class="form-control">
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <span class="input-group-text">Salasana</span>
                         <input type="text" class="form-control">
+                    </div>*@
+
+                    @using (Html.BeginForm("Authorize", "Home", FormMethod.Post, new { id = "loginForm" }))
+
+                    {
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4>Logins</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.LoginId)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UserName, "Käyttäjänimi", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PassWord, "Salasana", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                     
+                        </div>
+
+
+                    }
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-danger" data-bs-dismiss="modal">Poistu</a>
+                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" form="loginForm">Kirjaudu</button>
                     </div>
-                </div>
 
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Poistu</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Kirjaudu</button>
                 </div>
-
             </div>
         </div>
     </div>
-
-    <!--TÄSSÄ ALLA MUUTAMAT "LINKKI" NAPPULAT VALMIIKSI JOS HALUAA KÄYTTÄÄ"-->
-    @*<div class="row">
-            <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-                <h2 id="gettingStartedTitle">Getting started</h2>
-                <p>
-                    ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                    enables a clean separation of concerns and gives you full control over markup
-                    for enjoyable, agile development.
-                </p>
-                <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-            </section>
-            <section class="col-md-4" aria-labelledby="librariesTitle">
-                <h2 id="librariesTitle">Get more libraries</h2>
-                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-                <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-            </section>
-            <section class="col-md-4" aria-labelledby="hostingTitle">
-                <h2 id="hostingTitle">Web Hosting</h2>
-                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-                <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-            </section>
-        </div>*@
-</main>
+  </main>

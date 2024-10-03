@@ -38,6 +38,7 @@ namespace TilausDBApp.Controllers
                 {
                     db.Dispose();
                 }
+            ViewBag.LoginError = 0;
                 return View();
         }
 
@@ -127,9 +128,8 @@ namespace TilausDBApp.Controllers
             {
 
                 ViewBag.LoginMessage = "Successfull login";
-
                 ViewBag.LoggedStatus = "In";
-
+                ViewBag.LoginError = 0; //Ei virhettä kirjautumisessa..
                 Session["UserName"] = LoggedUser.UserName;
 
                 return RedirectToAction("Index", "Home"); //Tässä määritellään mihin onnistunut kirjautuminen johtaa --> Home/Index
@@ -141,13 +141,11 @@ namespace TilausDBApp.Controllers
             {
 
                 ViewBag.LoginMessage = "Login unsuccessfull";
-
                 ViewBag.LoggedStatus = "Out";
-
-
-                //LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
-
-                return View("Login", LoginModel);
+                ViewBag.LoginError = 1; //Pakotetaan modaali login-ruutu uudelleen koska kirjautumisyritys on epäonnistunut
+                //LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana."; <<<--- tuo ei vaan toimi jostain syystä
+                return View("Index", LoginModel);
+                //return View("Login", LoginModel);
 
             }
 
