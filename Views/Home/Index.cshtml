@@ -1,4 +1,4 @@
-﻿@model TilausDBApp.Models.Logins
+﻿
 
 @{
     ViewBag.Title = "Home Page";
@@ -27,72 +27,8 @@
         <p><a href="https://asp.net" class="btn btn-primary btn-md"><span class="fa-solid fa-cube"> BUTTONIN KAUTTA ASP.NET SIVUSTOLLE &raquo;</span></a></p>
         <h1><a href="https://asp.net"><span class="fa-solid fa-cube" title="ASP.NET-sivut"></span></a></h1>
     </section>
-
-    <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginRuutu">KIRJAUDU SISÄÄN</button>
-
-    <!-- The Modal -->
-    <div class="modal" id="LoginRuutu">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Kirjautuminen</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    @*<div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text">Käyttäjänimi</span>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text">Salasana</span>
-                        <input type="text" class="form-control">
-                    </div>*@
-
-                    @using (Html.BeginForm("Authorize", "Home", FormMethod.Post, new { id = "loginForm" }))
-
-                    {
-
-                        @Html.AntiForgeryToken()
-
-                        <div class="form-horizontal">
-                            <h4>Logins</h4>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.LoginId)
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.UserName, "Käyttäjänimi", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.PassWord, "Salasana", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                     
-                        </div>
-
-
-                    }
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <a href="@Url.Action("Index", "Home")" class="btn btn-danger" data-bs-dismiss="modal">Poistu</a>
-                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" form="loginForm">Kirjaudu</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+@{ 
+    Html.RenderPartial("_LoginModal");
+}
+    
   </main>

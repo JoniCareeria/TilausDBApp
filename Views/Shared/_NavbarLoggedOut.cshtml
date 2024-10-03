@@ -1,0 +1,25 @@
+﻿<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">TilausDBApp2.0 JATKOKEHITYS // LOGGED ->(@ViewBag.LoggedStatus)</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto">
+                <li class="btn">
+                    <a class="nav-link active" href="/home">
+                        Etusivu
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="btn"><a class="nav-link" href="/home/about">Tietoa firmasta</a></li>
+                <li class="btn"><a class="nav-link" href="/home/contact">Yhteystiedot</a></li>
+                <li class="btn"><a class="nav-link" data-bs-toggle="modal" data-bs-target="#LoginRuutu">KIRJAUDU SISÄÄN</a></li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-sm-2" type="search" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
