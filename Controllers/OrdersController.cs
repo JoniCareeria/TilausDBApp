@@ -157,5 +157,10 @@ namespace TilausDBApp.Controllers
  
             return View(orderSummary);
         }
+        public ActionResult TilausOtsikot()
+        {
+            var tilaukset = db.Tilaukset.Include(t => t.Asiakkaat).Include(t => t.Postitoimipaikat);
+            return View(tilaukset.ToList());
+        }
     }
 }
