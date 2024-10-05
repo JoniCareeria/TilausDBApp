@@ -151,16 +151,36 @@ namespace TilausDBApp.Controllers
                                    Ahinta = tr.Ahinta,
                                    Nimi = aa.Nimi,
                                    Postinumero = t.Postinumero,
-                                  
+
                                };
 
- 
+
             return View(orderSummary);
         }
         public ActionResult TilausOtsikot()
         {
             var tilaukset = db.Tilaukset.Include(t => t.Asiakkaat).Include(t => t.Postitoimipaikat);
             return View(tilaukset.ToList());
+        }
+
+        public ActionResult _TilausRivit(int? tilausid)
+        {
+            var orderRowsList = from tr in db.Tilausrivit
+                               join tu in db.Tuotteet on tr.TuoteID equals tu.TuoteID
+                               join aa in db.Asiakkaat on tu.Ahinta equals aa.AsiakasID
+                               where tr.TilausID == tilausid
+                               select new OrderSummaryData
+                               {
+                                   TilausID = tr.TilausID,
+                                   TuoteID = tu.TuoteID,
+                                   Ahinta = tr.Ahinta,
+                                   Nimi = aa.Nimi,
+
+
+                               };
+
+
+            return PartialView(orderRowsList);
         }
     }
 }
