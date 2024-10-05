@@ -169,11 +169,11 @@ namespace TilausDBApp.Controllers
                                join tu in db.Tuotteet on tr.TuoteID equals tu.TuoteID
                                join aa in db.Asiakkaat on tu.Ahinta equals aa.AsiakasID
                                where tr.TilausID == tilausid
-                               select new OrderSummaryData
+                               select new OrderRows
                                {
                                    TilausID = tr.TilausID,
                                    TuoteID = tu.TuoteID,
-                                   Ahinta = tr.Ahinta,
+                                   Ahinta = tu.Ahinta,
                                    Nimi = aa.Nimi,
 
 
