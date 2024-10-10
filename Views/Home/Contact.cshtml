@@ -1,6 +1,19 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
+
+@*JQuery, joka suoritetaan aina, kun sivu latautuu*@
+@section scripts{
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            if (@ViewBag.LoginError == 1) {
+                $('#LoginRuutu').modal('show');
+            }
+        });
+
+    </script>
+
+}
 <main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
     <h3>@ViewBag.Message</h3>
@@ -16,4 +29,7 @@
         <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
         <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
     </address>
+    @{
+        Html.RenderPartial("_LoginModal");
+    }
 </main>

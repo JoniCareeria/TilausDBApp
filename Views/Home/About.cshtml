@@ -1,9 +1,28 @@
 ﻿@{
     ViewBag.Title = "About";
 }
+
+@*JQuery, joka suoritetaan aina, kun sivu latautuu*@
+@section scripts{
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            if (@ViewBag.LoginError == 1) {
+                $('#LoginRuutu').modal('show');
+            }
+        });
+
+    </script>
+
+}
+
+
 <main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
     <h3>@ViewBag.Message</h3>
 
     <p>Use this area to provide additional information.</p>
+
+    @{
+        Html.RenderPartial("_LoginModal");
+    }
 </main>

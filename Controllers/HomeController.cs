@@ -61,6 +61,7 @@ namespace TilausDBApp.Controllers
             {
                 db.Dispose();
             }
+            ViewBag.LoginError = 0;
             return View();
 
         }
@@ -82,6 +83,7 @@ namespace TilausDBApp.Controllers
             {
                 db.Dispose();
             }
+            ViewBag.LoginError = 0;
             return View();
         }
 
