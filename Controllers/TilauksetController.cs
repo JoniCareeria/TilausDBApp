@@ -17,6 +17,8 @@ namespace TilausDBApp.Controllers
         // GET: Tilaukset
         public ActionResult Index()
         {
+           
+
             if (Session["UserName"] == null)
             {
                 ViewBag.LoggedStatus = "OUT";
@@ -24,6 +26,8 @@ namespace TilausDBApp.Controllers
             }
             else ViewBag.LoggedStatus = "IN";
             var tilaukset = db.Tilaukset.Include(t => t.Asiakkaat).Include(t => t.Postitoimipaikat);
+
+
             return View(tilaukset.ToList());
         }
 

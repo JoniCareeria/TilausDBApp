@@ -17,10 +17,11 @@
             }
         });
 
+        @*let labelTexts = [@Html.Raw(ViewBag.TuoteNimi)];
+        let dataValues = [@ViewBag.TuottenHinta];
+        var ctx = document.getElementById('myChart');
 
-        const ctx = document.getElementById('myChart');
-
-        new Chart(ctx, {
+        var myChartti = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -37,9 +38,9 @@
                     }
                 }
             }
-        });
-
+        });*@
     </script>
+
 }
 <main>
     <section class="row" aria-labelledby="aspnetTitle">

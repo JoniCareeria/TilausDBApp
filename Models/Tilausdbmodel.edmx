@@ -72,6 +72,26 @@
           <Property Name="Kuva" Type="image" />
           <Property Name="ImageLink" Type="varchar" MaxLength="200" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.Product Sales forAllTimes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Product Sales forAllTimes">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="bigint" Nullable="false" />
+          <Property Name="Nimi" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductSales" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.ProductSales10Best forAllTimes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductSales10Best forAllTimes">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="bigint" Nullable="false" />
+          <Property Name="Nimi" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductSales" Type="money" />
+        </EntityType>
         <Association Name="FK_Asiakkaat_Postitoimipaikat">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
           <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="*" />
@@ -140,6 +160,20 @@
           <EntitySet Name="Tilaukset" EntityType="Self.Tilaukset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tilausrivit" EntityType="Self.Tilausrivit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tuotteet" EntityType="Self.Tuotteet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product Sales forAllTimes" EntityType="Self.Product Sales forAllTimes" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Product Sales forAllTimes].[rowid] AS [rowid], 
+    [Product Sales forAllTimes].[Nimi] AS [Nimi], 
+    [Product Sales forAllTimes].[ProductSales] AS [ProductSales]
+    FROM [dbo].[Product Sales forAllTimes] AS [Product Sales forAllTimes]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductSales10Best forAllTimes" EntityType="Self.ProductSales10Best forAllTimes" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductSales10Best forAllTimes].[rowid] AS [rowid], 
+    [ProductSales10Best forAllTimes].[Nimi] AS [Nimi], 
+    [ProductSales10Best forAllTimes].[ProductSales] AS [ProductSales]
+    FROM [dbo].[ProductSales10Best forAllTimes] AS [ProductSales10Best forAllTimes]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Asiakkaat_Postitoimipaikat" Association="Self.FK_Asiakkaat_Postitoimipaikat">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
@@ -193,6 +227,8 @@
             <End Role="Tuotteet" EntitySet="Tuotteet" />
             <End Role="Tilausrivit" EntitySet="Tilausrivit" />
           </AssociationSet>
+          <EntitySet Name="Product_Sales_forAllTimes" EntityType="TilausDBModel.Product_Sales_forAllTimes" />
+          <EntitySet Name="ProductSales10Best_forAllTimes" EntityType="TilausDBModel.ProductSales10Best_forAllTimes" />
         </EntityContainer>
         <EntityType Name="Asiakkaat">
           <Key>
@@ -331,6 +367,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Product_Sales_forAllTimes">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int64" Nullable="false" />
+          <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductSales" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="ProductSales10Best_forAllTimes">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int64" Nullable="false" />
+          <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductSales" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -408,6 +460,24 @@
                 <ScalarProperty Name="Ahinta" ColumnName="Ahinta" />
                 <ScalarProperty Name="Nimi" ColumnName="Nimi" />
                 <ScalarProperty Name="TuoteID" ColumnName="TuoteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Sales_forAllTimes">
+            <EntityTypeMapping TypeName="TilausDBModel.Product_Sales_forAllTimes">
+              <MappingFragment StoreEntitySet="Product Sales forAllTimes">
+                <ScalarProperty Name="ProductSales" ColumnName="ProductSales" />
+                <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSales10Best_forAllTimes">
+            <EntityTypeMapping TypeName="TilausDBModel.ProductSales10Best_forAllTimes">
+              <MappingFragment StoreEntitySet="ProductSales10Best forAllTimes">
+                <ScalarProperty Name="ProductSales" ColumnName="ProductSales" />
+                <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

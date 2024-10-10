@@ -24,6 +24,7 @@ namespace TilausDBApp.Models
         public Nullable<int> AsiakasID { get; set; }
         public string Toimitusosoite { get; set; }
         public string Postinumero { get; set; }
+        public string WeekdayName { get; set; }
         public Nullable<System.DateTime> Tilauspvm { get; set; }
         public Nullable<System.DateTime> Toimituspvm { get; set; }
     

@@ -19,6 +19,7 @@ namespace TilausDBApp.Controllers
         public ActionResult Index()
         {
             var tilaukset = db.Tilaukset.Include(t => t.Asiakkaat).Include(t => t.Postitoimipaikat);
+            
             return View(tilaukset.ToList());
         }
 

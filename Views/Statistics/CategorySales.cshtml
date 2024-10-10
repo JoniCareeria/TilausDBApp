@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Tuotteiden myynti";
+}
+
+<script ssrc="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.1/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@section scripts{
+    <script type="text/javascript">
+        let labelTexts = [@Html.Raw(ViewBag.tuoteNimi)];
+        let dataValues = [@ViewBag.tuoteProductSales];
+        var ctx = document.getElementById('barcanvas');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labelTexts,
+                datasets: [{
+                    label: 'Myynti numeroina',
+                    data: dataValues,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+}
+<h2>Tuotteiden myynti</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <canvas id="barcanvas"></canvas>
+        </div>
+    </div>
+</div>
+
