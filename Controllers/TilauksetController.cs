@@ -138,5 +138,11 @@ namespace TilausDBApp.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private string GetFinnishWeekday(DateTime date)
+        {
+            var culture = new System.Globalization.CultureInfo("fi-FI");
+            return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
+        }
     }
 }

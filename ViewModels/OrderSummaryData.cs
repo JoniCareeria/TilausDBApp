@@ -22,5 +22,6 @@
         public Nullable<System.DateTime> Tilauspvm { get; set; }
         public Nullable<System.DateTime> Toimituspvm { get; set; }
         public string Postitoimipaikka { get; set; }
+        public string WeekdayName { get; set; }
     }
 }

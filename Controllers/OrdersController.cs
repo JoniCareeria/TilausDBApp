@@ -151,6 +151,7 @@ namespace TilausDBApp.Controllers
                                    Ahinta = tr.Ahinta,
                                    Nimi = aa.Nimi,
                                    Postinumero = t.Postinumero,
+                                   //WeekdayName = t.Tilauspvm.HasValue ? GetFinnishWeekday(t.Tilauspvm.Value) : string.Empty
 
                                };
 
@@ -161,6 +162,12 @@ namespace TilausDBApp.Controllers
         {
             var tilaukset = db.Tilaukset.Include(t => t.Asiakkaat).Include(t => t.Postitoimipaikat);
             return View(tilaukset.ToList());
+        }
+
+        private string GetFinnishWeekday(DateTime date)
+        {
+            var culture = new System.Globalization.CultureInfo("fi-FI");
+            return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
         }
 
         public ActionResult _TilausRivit(int? tilausid)
