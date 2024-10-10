@@ -4,6 +4,10 @@
     ViewBag.Title = "Home Page";
 }
 
+<script ssrc="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.1/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 @*JQuery, joka suoritetaan aina, kun sivu latautuu*@
 @section scripts{
     <script type="text/javascript">
@@ -12,6 +16,29 @@
                 $('#LoginRuutu').modal('show');
             }
         });
+
+
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
     </script>
 }
 <main>
@@ -27,8 +54,16 @@
         <p><a href="https://asp.net" class="btn btn-primary btn-md"><span class="fa-solid fa-cube"> BUTTONIN KAUTTA ASP.NET SIVUSTOLLE &raquo;</span></a></p>
         <h1><a href="https://asp.net"><span class="fa-solid fa-cube" title="ASP.NET-sivut"></span></a></h1>
     </section>
-@{ 
-    Html.RenderPartial("_LoginModal");
-}
-    
-  </main>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+    @{
+        Html.RenderPartial("_LoginModal");
+    }
+
+</main>
