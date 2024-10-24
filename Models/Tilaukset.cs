@@ -11,6 +11,7 @@ namespace TilausDBApp.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     
     public partial class Tilaukset
     {
@@ -22,6 +23,7 @@ namespace TilausDBApp.Models
         }
     
         public int TilausID { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
         public Nullable<int> AsiakasID { get; set; }
         public string Toimitusosoite { get; set; }
         public string Postinumero { get; set; }

@@ -10,5 +10,7 @@ namespace TilausDBApp.ViewModels
         public long rowid { get; set; }
         public string Nimi { get; set; }
         public Nullable<decimal> ProductSales { get; set; }
+
+        public string WeekdayName { get; set; }
     }
 }

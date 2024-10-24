@@ -31,16 +31,43 @@
                 }
             }
         });
+
     </script>
+    <script type="text/javascript">
+
+        let dataValju = []
+        var ctx = document.getElementById('myChartti');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Maanantai', 'Tiistai', 'Keskiviikko', 'Torstai', 'Perjantai', 'LA/SU'],
+                datasets: [{
+                    label: 'Tilauksia per viikonpäivä',
+                    data: [1, 2, 0, 2, 1, 2],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
 
 }
 <h2>Tuotteiden myynti</h2>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <canvas id="barcanvas"></canvas>
+            <canvas id="myChartti"></canvas>
         </div>
     </div>
 </div>
-

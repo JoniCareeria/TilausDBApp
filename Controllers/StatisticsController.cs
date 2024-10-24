@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +20,7 @@ namespace TilausDBApp.Controllers
 
         public ActionResult CategorySales()
         {
+           
             string categoryNameList;
             string categorySalesList;
             List<CategorySalesClass> CategorySalesList = new List<CategorySalesClass>();
@@ -40,7 +42,54 @@ namespace TilausDBApp.Controllers
             ViewBag.tuoteNimi = categoryNameList;
             ViewBag.tuoteProductSales = categorySalesList;
 
+
             return View();
         }
+
+
+
+        private string GetFinnishWeekday(DateTime date)
+        {
+            var culture = new System.Globalization.CultureInfo("fi-FI");
+            return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
+        }
+
+        //public ActionResult _ProductSalesPerDate(string tuoteNimi)
+
+        //{
+
+        //    //if (String.IsNullOrEmpty(productName)) productName = "Lakkalikööri";  //debuggausta varten
+
+
+
+        //    List<DailyProductSales> dailyproductsalesList = new List<DailyProductSales>();
+
+
+
+        //    var orderSummary = from pds in db.
+
+        //                       where pds.Nimi == tuoteNimi
+
+        //                       orderby pds.Tilausrivit
+
+
+
+        //                       select new DailyProductSales
+
+        //                       {
+
+        //                           OrderDate = SqlFunctions.DateName("year", pds.T) + "." + SqlFunctions.DateName("MM", pds.OrderDate) + "." + SqlFunctions.DateName("day", pds.OrderDate),
+
+
+
+        //                           DailySales = (float)pds.DailySales,
+
+        //                           ProductName = pds.ProductName
+
+        //                       };
+
+        //    return Json(orderSummary, JsonRequestBehavior.AllowGet);
+
+        //}
     }
 }

@@ -158,9 +158,12 @@ namespace TilausDBApp.Controllers
 
 
             return View(orderSummary);
+
+
         }
         public ActionResult TilausOtsikot()
         {
+
             var tilaukset = db.Tilaukset.Include(t => t.Asiakkaat).Include(t => t.Postitoimipaikat);
             return View(tilaukset.ToList());
         }
@@ -178,9 +181,9 @@ namespace TilausDBApp.Controllers
                                    Ahinta = tr.Ahinta,
                                    Nimi = tu.Nimi,
                                    Maara = tr.Maara,
-                                   
-                                  
-                                   //WeekdayName = t.Tilauspvm.HasValue ? GetFinnishWeekday(t.Tilauspvm.Value) : string.Empty
+
+
+                                   //WeekdayName = Tilauspvm.HasValue ? GetFinnishWeekday(t.Tilauspvm.Value) : string.Empty
 
                                };
 

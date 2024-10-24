@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CategorySalesClass.cs" />
+    <Compile Include="ViewModels\DailyProductSales.cs" />
     <Compile Include="ViewModels\OrderRows.cs" />
     <Compile Include="ViewModels\OrderSummaryData.cs" />
   </ItemGroup>
