@@ -153,6 +153,9 @@
     <Compile Include="Models\ProductSales10Best_forAllTimes.cs">
       <DependentUpon>Tilausdbmodel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductsDailySales.cs">
+      <DependentUpon>Tilausdbmodel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product_Sales_forAllTimes.cs">
       <DependentUpon>Tilausdbmodel.tt</DependentUpon>
     </Compile>

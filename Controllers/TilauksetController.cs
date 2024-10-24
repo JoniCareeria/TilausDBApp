@@ -151,29 +151,6 @@ namespace TilausDBApp.Controllers
             var culture = new System.Globalization.CultureInfo("fi-FI");
             return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
         }
-
-        //private readonly TilausDBEntities1 _context;
-
-        //public TilauksetController(TilausDBEntities1 context)
-        //{
-        //    _context = context;
-        //}
-
-        //public ActionResult OrdersByDayOfWeek()
-        //{
-        //    // Haetaan tietokannasta tilaukset ja ryhmitellään ne viikonpäivän mukaan
-        //    var ordersByDayOfWeek = _context.Tilaukset
-        //        .GroupBy(o => o.Tilauspvm.HasValue ? GetFinnishWeekday(o.Tilauspvm.Value) : string.Empty)
-        //        .Select(g => new
-        //        {
-        //            DayOfWeek = g.Key,
-        //            OrderCount = g.Count()
-        //        })
-        //        .ToList();
-
-        //    // Palautetaan näkymään tiedot
-        //    return View(ordersByDayOfWeek);
-        //}                                                           KOITETTU SAADA VÄHÄ PÄIVÄMÄÄRÄÄ NÄKYMÄÄN
         
     }
 }

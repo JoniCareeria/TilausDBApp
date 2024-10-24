@@ -54,42 +54,42 @@ namespace TilausDBApp.Controllers
             return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
         }
 
-        //public ActionResult _ProductSalesPerDate(string tuoteNimi)
+        public ActionResult _ProductSalesPerDate(string tuoteNimi)
 
-        //{
+        {
 
-        //    //if (String.IsNullOrEmpty(productName)) productName = "Lakkalikööri";  //debuggausta varten
-
-
-
-        //    List<DailyProductSales> dailyproductsalesList = new List<DailyProductSales>();
+            //if (String.IsNullOrEmpty(productName)) productName = "Lakkalikööri";  //debuggausta varten
 
 
 
-        //    var orderSummary = from pds in db.
-
-        //                       where pds.Nimi == tuoteNimi
-
-        //                       orderby pds.Tilausrivit
+            List<DailyProductSales> dailyproductsalesList = new List<DailyProductSales>();
 
 
 
-        //                       select new DailyProductSales
+            var orderSummary = from pds in db.ProductsDailySales
 
-        //                       {
+                               where pds.Nimi == tuoteNimi
 
-        //                           OrderDate = SqlFunctions.DateName("year", pds.T) + "." + SqlFunctions.DateName("MM", pds.OrderDate) + "." + SqlFunctions.DateName("day", pds.OrderDate),
+                               orderby pds.Tilauspvm
 
 
 
-        //                           DailySales = (float)pds.DailySales,
+                               select new DailyProductSales
 
-        //                           ProductName = pds.ProductName
+                               {
 
-        //                       };
+                                   Tilauspvm = SqlFunctions.DateName("year", pds.Tilauspvm) + "." + SqlFunctions.DateName("MM", pds.Tilauspvm) + "." + SqlFunctions.DateName("day", pds.Tilauspvm),
 
-        //    return Json(orderSummary, JsonRequestBehavior.AllowGet);
 
-        //}
+                                   WeekdayName = pds.Tilauspvm.HasValue ? GetFinnishWeekday(pds.Tilauspvm.Value) : string.Empty,
+                                   //DailySales = (float)pds.DailySales,
+
+                                   Nimi = pds.Nimi
+
+                               };
+
+            return Json(orderSummary, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

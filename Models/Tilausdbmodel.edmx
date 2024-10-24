@@ -92,6 +92,16 @@ warning 6002: The table/view 'TilausDB.dbo.ProductSales10Best forAllTimes' does 
           <Property Name="Nimi" Type="nvarchar" MaxLength="50" />
           <Property Name="ProductSales" Type="money" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.ProductsDailySales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProductsDailySales">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="bigint" Nullable="false" />
+          <Property Name="Tilauspvm" Type="datetime" />
+          <Property Name="Nimi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_Asiakkaat_Postitoimipaikat">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
           <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="*" />
@@ -174,6 +184,13 @@ warning 6002: The table/view 'TilausDB.dbo.ProductSales10Best forAllTimes' does 
     [ProductSales10Best forAllTimes].[ProductSales] AS [ProductSales]
     FROM [dbo].[ProductSales10Best forAllTimes] AS [ProductSales10Best forAllTimes]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ProductsDailySales" EntityType="Self.ProductsDailySales" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProductsDailySales].[rowid] AS [rowid], 
+    [ProductsDailySales].[Tilauspvm] AS [Tilauspvm], 
+    [ProductsDailySales].[Nimi] AS [Nimi]
+    FROM [dbo].[ProductsDailySales] AS [ProductsDailySales]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Asiakkaat_Postitoimipaikat" Association="Self.FK_Asiakkaat_Postitoimipaikat">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
@@ -229,6 +246,7 @@ warning 6002: The table/view 'TilausDB.dbo.ProductSales10Best forAllTimes' does 
           </AssociationSet>
           <EntitySet Name="Product_Sales_forAllTimes" EntityType="TilausDBModel.Product_Sales_forAllTimes" />
           <EntitySet Name="ProductSales10Best_forAllTimes" EntityType="TilausDBModel.ProductSales10Best_forAllTimes" />
+          <EntitySet Name="ProductsDailySales" EntityType="TilausDBModel.ProductsDailySales" />
         </EntityContainer>
         <EntityType Name="Asiakkaat">
           <Key>
@@ -383,6 +401,14 @@ warning 6002: The table/view 'TilausDB.dbo.ProductSales10Best forAllTimes' does 
           <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProductSales" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <EntityType Name="ProductsDailySales">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int64" Nullable="false" />
+          <Property Name="Tilauspvm" Type="DateTime" Precision="3" />
+          <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -477,6 +503,15 @@ warning 6002: The table/view 'TilausDB.dbo.ProductSales10Best forAllTimes' does 
               <MappingFragment StoreEntitySet="ProductSales10Best forAllTimes">
                 <ScalarProperty Name="ProductSales" ColumnName="ProductSales" />
                 <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsDailySales">
+            <EntityTypeMapping TypeName="TilausDBModel.ProductsDailySales">
+              <MappingFragment StoreEntitySet="ProductsDailySales">
+                <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+                <ScalarProperty Name="Tilauspvm" ColumnName="Tilauspvm" />
                 <ScalarProperty Name="rowid" ColumnName="rowid" />
               </MappingFragment>
             </EntityTypeMapping>

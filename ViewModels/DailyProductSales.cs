@@ -8,26 +8,11 @@ namespace TilausDBApp.ViewModels
     public class DailyProductSales
 
     {
+        public long rowid { get; set; }
+        public string Nimi { get; set; }
+        public string Tilauspvm { get; set; }
 
-        public string OrderDate { get; set; }
-
-        public string ProductName { get; set; }
-
-
-
-        public float? DailySales { get; set; }
-
-
-
-        public decimal? UnitPrice { get; set; }
-
-        public short? Quantity { get; set; }
-
-        public float? Discount { get; set; }
-
-
-
-        public float? ProductSales { get; set; }
+        public string WeekdayName { get; set; }
 
     }
 }
