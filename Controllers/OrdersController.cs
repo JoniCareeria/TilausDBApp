@@ -165,30 +165,33 @@ namespace TilausDBApp.Controllers
             return View(tilaukset.ToList());
         }
 
-        private string GetFinnishWeekday(DateTime date)
-        {
-            var culture = new System.Globalization.CultureInfo("fi-FI");
-            return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
-        }
-
         public ActionResult _TilausRivit(int? tilausid)
         {
             var orderRowsList = from tr in db.Tilausrivit
                                join tu in db.Tuotteet on tr.TuoteID equals tu.TuoteID
-                               join aa in db.Asiakkaat on tu.Ahinta equals aa.AsiakasID
-                               where tr.TilausID == tilausid
+                                //join aa in db.Asiakkaat on tr.AsiakasID equals aa.AsiakasID
+                                where tr.TilausID == tilausid
                                select new OrderRows
                                {
                                    TilausID = tr.TilausID,
                                    TuoteID = tu.TuoteID,
-                                   Ahinta = tu.Ahinta,
-                                   Nimi = aa.Nimi,
-
+                                   Ahinta = tr.Ahinta,
+                                   Nimi = tu.Nimi,
+                                   Maara = tr.Maara,
+                                   
+                                  
+                                   //WeekdayName = t.Tilauspvm.HasValue ? GetFinnishWeekday(t.Tilauspvm.Value) : string.Empty
 
                                };
 
 
             return PartialView(orderRowsList);
+        }
+
+        private string GetFinnishWeekday(DateTime date)
+        {
+            var culture = new System.Globalization.CultureInfo("fi-FI");
+            return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
         }
     }
 }

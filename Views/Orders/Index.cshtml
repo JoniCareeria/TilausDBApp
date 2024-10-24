@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<TilausDBApp.Models.Tilaukset>
 
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
+<h2>OrdersHarjoittelua</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -38,32 +40,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Toimitusosoite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tilauspvm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WeekdayName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Toimituspvm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Asiakkaat.Nimi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Toimitusosoite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tilauspvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekdayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Toimituspvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asiakkaat.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postitoimipaikat.Postitoimipaikka)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TilausID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
+            </td>
+        </tr>
+    }
 
 </table>

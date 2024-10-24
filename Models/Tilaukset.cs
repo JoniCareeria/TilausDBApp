@@ -18,6 +18,7 @@ namespace TilausDBApp.Models
         public Tilaukset()
         {
             this.Tilausrivit = new HashSet<Tilausrivit>();
+            
         }
     
         public int TilausID { get; set; }

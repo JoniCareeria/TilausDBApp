@@ -13,6 +13,7 @@ namespace TilausDBApp.Controllers
     public class TilauksetController : Controller
     {
         private TilausDBEntities1 db = new TilausDBEntities1();
+        
 
         // GET: Tilaukset
         public ActionResult Index()
