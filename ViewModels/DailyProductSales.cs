@@ -10,7 +10,9 @@ namespace TilausDBApp.ViewModels
     {
         public long rowid { get; set; }
         public string Nimi { get; set; }
-        public string Tilauspvm { get; set; }
+        public string Tilauspvm2 { get; set; }
+
+        public Nullable<DateTime> Tilauspvm { get; set; }
 
         public string WeekdayName { get; set; }
 
