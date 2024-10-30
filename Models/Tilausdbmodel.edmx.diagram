@@ -20,6 +20,7 @@
         <EntityTypeShape EntityType="TilausDBModel.Product_Sales_forAllTimes" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TilausDBModel.ProductSales10Best_forAllTimes" Width="1.5" PointX="0.75" PointY="8.75" />
         <EntityTypeShape EntityType="TilausDBModel.ProductsDailySales" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="TilausDBModel.ViikonpaivaTilaukset" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

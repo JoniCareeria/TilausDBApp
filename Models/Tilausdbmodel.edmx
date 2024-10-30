@@ -102,6 +102,16 @@ warning 6002: The table/view 'TilausDB.dbo.ProductsDailySales' does not have a p
           <Property Name="Tilauspvm" Type="datetime" />
           <Property Name="Nimi" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.ViikonpaivaTilaukset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViikonpaivaTilaukset">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="bigint" Nullable="false" />
+          <Property Name="Viikonpaiva" Type="varchar" MaxLength="11" />
+          <Property Name="TilaustenMaara" Type="int" />
+        </EntityType>
         <Association Name="FK_Asiakkaat_Postitoimipaikat">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
           <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="*" />
@@ -191,6 +201,13 @@ warning 6002: The table/view 'TilausDB.dbo.ProductsDailySales' does not have a p
     [ProductsDailySales].[Nimi] AS [Nimi]
     FROM [dbo].[ProductsDailySales] AS [ProductsDailySales]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ViikonpaivaTilaukset" EntityType="Self.ViikonpaivaTilaukset" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViikonpaivaTilaukset].[rowid] AS [rowid], 
+    [ViikonpaivaTilaukset].[Viikonpaiva] AS [Viikonpaiva], 
+    [ViikonpaivaTilaukset].[TilaustenMaara] AS [TilaustenMaara]
+    FROM [dbo].[ViikonpaivaTilaukset] AS [ViikonpaivaTilaukset]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Asiakkaat_Postitoimipaikat" Association="Self.FK_Asiakkaat_Postitoimipaikat">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
@@ -247,6 +264,7 @@ warning 6002: The table/view 'TilausDB.dbo.ProductsDailySales' does not have a p
           <EntitySet Name="Product_Sales_forAllTimes" EntityType="TilausDBModel.Product_Sales_forAllTimes" />
           <EntitySet Name="ProductSales10Best_forAllTimes" EntityType="TilausDBModel.ProductSales10Best_forAllTimes" />
           <EntitySet Name="ProductsDailySales" EntityType="TilausDBModel.ProductsDailySales" />
+          <EntitySet Name="ViikonpaivaTilaukset" EntityType="TilausDBModel.ViikonpaivaTilaukset" />
         </EntityContainer>
         <EntityType Name="Asiakkaat">
           <Key>
@@ -409,6 +427,14 @@ warning 6002: The table/view 'TilausDB.dbo.ProductsDailySales' does not have a p
           <Property Name="Tilauspvm" Type="DateTime" Precision="3" />
           <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ViikonpaivaTilaukset">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int64" Nullable="false" />
+          <Property Name="Viikonpaiva" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="TilaustenMaara" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -512,6 +538,15 @@ warning 6002: The table/view 'TilausDB.dbo.ProductsDailySales' does not have a p
               <MappingFragment StoreEntitySet="ProductsDailySales">
                 <ScalarProperty Name="Nimi" ColumnName="Nimi" />
                 <ScalarProperty Name="Tilauspvm" ColumnName="Tilauspvm" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViikonpaivaTilaukset">
+            <EntityTypeMapping TypeName="TilausDBModel.ViikonpaivaTilaukset">
+              <MappingFragment StoreEntitySet="ViikonpaivaTilaukset">
+                <ScalarProperty Name="TilaustenMaara" ColumnName="TilaustenMaara" />
+                <ScalarProperty Name="Viikonpaiva" ColumnName="Viikonpaiva" />
                 <ScalarProperty Name="rowid" ColumnName="rowid" />
               </MappingFragment>
             </EntityTypeMapping>

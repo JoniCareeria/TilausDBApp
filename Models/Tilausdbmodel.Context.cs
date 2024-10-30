@@ -35,5 +35,6 @@ namespace TilausDBApp.Models
         public virtual DbSet<Product_Sales_forAllTimes> Product_Sales_forAllTimes { get; set; }
         public virtual DbSet<ProductSales10Best_forAllTimes> ProductSales10Best_forAllTimes { get; set; }
         public virtual DbSet<ProductsDailySales> ProductsDailySales { get; set; }
+        public virtual DbSet<ViikonpaivaTilaukset> ViikonpaivaTilaukset { get; set; }
     }
 }

@@ -54,60 +54,68 @@ namespace TilausDBApp.Controllers
             return culture.DateTimeFormat.GetDayName(date.DayOfWeek);
         }
 
-        
 
-        public JsonResult GetSalesData()
+        public ActionResult ViikonpaivaTilaukset()
+
         {
 
+            string viikonPva = "";
 
-            var salesData = db.ProductsDailySales
-                
+            string kappalemaara = "";
 
-                .Select(s => new { s.Tilauspvm, s.Nimi })
-                .ToList();
-               
-                
-            return Json(salesData, JsonRequestBehavior.AllowGet);
 
+
+            List<ViikonpaivaTilaukset> vkopvmTilaukset = new List<ViikonpaivaTilaukset>();
+
+
+
+            using (var db = new TilausDBEntities1())
+
+            {
+
+
+
+                var tilauspvdata = (from tpd in db.ViikonpaivaTilaukset
+
+                                    select tpd).ToList();
+
+
+
+                foreach (ViikonpaivaTilaukset vkopmvTilaukset in tilauspvdata)
+
+                {
+
+                    ViikonpaivaTilaukset YksiTilausRivi = new ViikonpaivaTilaukset();
+
+                    YksiTilausRivi.Viikonpaiva = vkopmvTilaukset.Viikonpaiva;
+
+                    YksiTilausRivi.TilaustenMaara = (int)vkopmvTilaukset.TilaustenMaara;
+
+                    vkopvmTilaukset.Add(YksiTilausRivi);
+
+                }
+
+                db.Database.Connection.Close();
+
+            }
+
+
+
+            viikonPva = "'" + string.Join("','", vkopvmTilaukset.Select(n => n.Viikonpaiva).ToList()) + "'";
+
+            kappalemaara = string.Join(",", vkopvmTilaukset.Select(n => n.TilaustenMaara.ToString()).ToList());
+
+
+
+            ViewBag.viikonPaiva = viikonPva;
+
+            ViewBag.kappaleMaara = kappalemaara;
+
+
+
+            return View();
 
         }
 
-        //public ActionResult _ProductSalesPerDate(string tuoteNimi)
-
-        //{
-
-        //    //if (String.IsNullOrEmpty(productName)) productName = "Lakkalikööri";  //debuggausta varten
-
-
-
-        //    List<DailyProductSales> dailyproductsalesList = new List<DailyProductSales>();
-
-
-
-        //    var orderSummary = from pds in db.ProductsDailySales
-
-        //                       where pds.Nimi == tuoteNimi
-
-        //                       orderby pds.Tilauspvm
-
-
-
-        //                       select new DailyProductSales
-
-        //                       {
-
-        //                           Tilauspvm = SqlFunctions.DateName("year", pds.Tilauspvm) + "." + SqlFunctions.DateName("MM", pds.Tilauspvm) + "." + SqlFunctions.DateName("day", pds.Tilauspvm),
-
-
-        //                           //WeekdayName = pds.Tilauspvm.HasValue ? GetFinnishWeekday(pds.Tilauspvm.Value) : string.Empty,
-        //                           //DailySales = (float)pds.DailySales,
-
-        //                           Nimi = pds.Nimi
-
-        //                       };
-
-        //    return Json(orderSummary, JsonRequestBehavior.AllowGet);
-
-        //}
     }
 }

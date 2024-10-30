@@ -36,190 +36,92 @@
         });
 
     </script>
-    <script>
-    $(document).ready(function() {
-        // Tee Ajax-kutsu JSON-datan hakemiseksi
-        $.ajax({
-            url: '@Url.Action("GetSalesData", "Statistics")', // kutsu kontrolloijan JSON-toimintoa
-            method: 'GET',
-            success: function (data) {
-                // Määritä kaavio, jossa käytetään JSON-datasta saatuja arvoja
-                let datavalues2 = data.map(d => d.Tilauspvm);
-                let dataValues1 = data.map(d => d.Nimi);
-                var ctx = document.getElementById('salesChart')/*.getContext('2d')*/;
-                var salesChart = new Chart(ctx, {
-                    type: 'bar', // Kaavion tyyppi, esim. 'line', 'bar', 'pie'
-                    data: {
-                        labels: data.map(d => d.Tilauspvm), // Kuukausinimet JSON-datasta
-                        datasets: [{
-                            label: 'Myynti MA-PE',
-                            data: dataValues1, // Nimiarvot JSON-datasta pitäs antaa
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
+
+    <script type="text/javascript">
+
+        let labelTexts1 = [@Html.Raw(ViewBag.viikonPaiva)];
+
+        let dataValues1 = [@ViewBag.kappaleMaara];
+
+        var ctx = document.getElementById('vkpvmtilaukset').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+
+            type: 'bar',
+
+            data: {
+
+                labels: labelTexts1,
+
+                datasets: [{
+
+                    label: 'Tuotteiden Tilaukset Viikonpäivinä',
+
+                    data: dataValues1,
+
+                    backgroundColor: [
+
+                        'rgba(255, 99,132,0.7)',
+
+                        'rgba(54, 162,235,0.7)',
+
+                        'rgba(255, 206,86,0.7)',
+
+                        'rgba(75, 192,199,0.7)',
+
+                        'rgba(153, 99,255,0.7)',
+
+                        'rgba(255, 102,255,0.7)',
+
+                        'rgba(1, 99,222,0.7)'
+
+                    ],
+
+                    borderColor: [
+
+                        'rgba(255, 99,132,1)',
+
+                        'rgba(54, 162,235,1)',
+
+                        'rgba(255, 206,86,1)',
+
+                        'rgba(75, 192,199,1)',
+
+                        'rgba(153, 99,255,1)',
+
+                        'rgba(255, 102,255,1)',
+
+                        'rgba(1, 99,222,1)'
+
+                    ],
+
+                    borderWidth: 1
+
+                }]
+
             },
-            error: function() {
-                alert("Dataa ei voitu hakea");
-            }
-        });
-    });
-    </script>
-    @*<script type="text/javascript">
 
-            let dataValju = Tilauspvm,
-            var ctx = document.getElementById('myChartti');
+            options: {
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Maanantai', 'Tiistai', 'Keskiviikko', 'Torstai', 'Perjantai', 'LA/SU'],
-                    datasets: [{
-                        label: 'Tilauksia per viikonpäivä',
-                        data: [1, 2, 0, 2, 1, 2],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
+                scales: {
+
+                    yAxes: [{
+
+                        ticks: {
+
                             beginAtZero: true
+
                         }
-                    }
+
+                    }]
+
                 }
-            });
-
-        </script>*@
-    @*<script type="text/javascript">
-
-            //Klikkauksen kuuntelija
-
-            //Tuotteen myynti -kaavion
-
-            $(function () {
-
-                $(".getTuoteNimi").click(function () {
-
-                    let tuoteNimi = $(this).data("tuotenimi");
-
-                    drawLineChart(tuoteNimi);
-
-                })
-
-            });
-        </script>
-        <script type="text/javascript">
-
-            //Datan haku kontrollerista
-
-            function drawLineChart(tuoteNimi) {
-
-                let url = "/Statistics/_ProductSalesPerDate/?tuoteNimi=" + tuoteNimi;
-
-                var jsonData = $.ajax({
-
-                    url: url,
-
-                    dataType: 'json',
-
-                }).done(function (results) {
-
-                    console.log(results);
-
-                //    //Split timestamp and data into separate arrays
-
-                //    var salesLabels = [], salesData = [];
-
-                //    for (let i = 0; i < results.length; i++) {
-
-                //        salesData.push(results[i].salesData);
-
-                //        salesLabels.push(results[i].tuoteNimi);
-
-                //    }
-
-                //    renderChart(salesData, salesLabels, tuoteNimi);
-
-                //});
 
             }
 
+        });
 
-
-            //Chartin piirto ja modaali-ikkunan kutsu
-
-            //function renderChart(dataValues, labelTexts, tuoteNimi) {
-
-            //    var ctx = document.getElementById('barcanvas').getContext('2d');
-
-            //    var barcanvas = new Chart(ctx, {
-
-            //        type: 'line',
-
-            //        data: {
-
-            //            labels: labelTexts,
-
-            //            datasets: [{
-
-            //                label: 'Daily product sales for ' + tuoteNimi,
-
-            //                data: dataValues,
-
-            //                backgroundColor: [
-
-            //                    'rgba(255, 99, 232, 0.2)'
-
-            //                ],
-
-            //                borderColor: [
-
-            //                    'rgba(255, 99, 132, 1)'
-
-            //                ],
-
-            //                borderWidth: 2
-
-            //            }]
-
-            //        },
-
-            //        options: {
-
-            //            scales: {
-
-            //                yAxes: [{
-
-            //                    ticks: {
-
-            //                        beginAtZero: true,
-
-            //                        stepSize: 100
-
-            //                    }
-
-            //                }]
-
-            //            }
-
-            //        }
-
-            //    });
-
-                //$('#ProductSalesPerDateModal').modal('show');
-
-            //}
-
-
-
-        </script>*@
+    </script>
 
 }
 <h2> Tuotteiden myynti</h2>
@@ -228,15 +130,13 @@
     <div class="row">
         <div class="col-sm-8">
             <canvas id="barcanvas1"></canvas>
-            <canvas id="barcanvas"></canvas>
-            @*<button class="btn-dark getTuoteNimi" style="border-radius: 4px;" data-tuotenimi=""></button>*@
-
+            <canvas id="vkpvmtilaukset"></canvas>
         </div>
     </div>
 </div>
 <body>
-    <h2>Päiväkohtainen myynti</h2>
-    <canvas id="salesChart" width="400" height="200"></canvas>
+        <h2>Päiväkohtainen myynti</h2>
+        <canvas id="vkpvmtilaukset" width="200" height="200"></canvas>
 
 
 </body>
