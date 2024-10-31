@@ -2362,6 +2362,7 @@
     <Content Include="Views\Orders\TilausOtsikot.cshtml" />
     <Content Include="Views\Statistics\CategorySales.cshtml" />
     <Content Include="Views\Orders\_TilausRivit.cshtml" />
+    <Content Include="Views\Statistics\ViikonpaivaTilaukset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
